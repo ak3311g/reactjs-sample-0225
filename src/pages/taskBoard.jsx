@@ -90,7 +90,7 @@ export default function TaskBoard() {
       <h1 className="text-white text-3xl text-center mb-6">Task Board</h1>
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-bold mb-4">Your Tasks</h2>
-        {taskBoardData.taskList.length > 0 ? (
+        {taskBoardData?.taskList?.length > 0 ? (
           <ul className="space-y-4">
             <li className="flex items-center justify-between mb-4">
                 <Button
@@ -106,7 +106,7 @@ export default function TaskBoard() {
                 className="bg-gray text-fuchsia-700 p-4 rounded shadow"
               >
                 <h3 className="text-lg font-semibold">{taskList.name}</h3>
-                {taskList.tasks.length > 0 ? (
+                {taskList?.tasks?.length > 0 ? (
                   <ul className="mt-2 space-y-2">
                     <li className="text-gray-500">
                         Tasks ({taskList.tasks.length}):

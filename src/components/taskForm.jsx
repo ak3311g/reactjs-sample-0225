@@ -24,7 +24,7 @@ export default function TaskForm({setShowTaskForm,taskBoardId}) {
             return;
         }
         const newTask = {
-            id: taskList.tasks.length + 1,
+            id: taskList?.tasks?.length + 1,
             name: taskName,
             description: taskDescription,
             date: taskDate,
