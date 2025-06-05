@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/common/button";
 import { createTaskboard } from "../apis/taskboard";
 import TaskForm from "../components/taskForm";
@@ -9,7 +9,28 @@ export default function TaskBoard() {
     show: false,
     taskListId: null,
   });
+  const [userDetails, setUserDetails] = useState({});
   const email = JSON.parse(localStorage.getItem("arakoouser")).email;
+
+  useEffect(() => {
+
+    const randomNumber = Math.floor(Math.random() * 1000) + 1;
+
+    const profile = ()=> fetch(`https://picsum.photos/id/${randomNumber}/200/200`)
+      .then((response) => setUserDetails(
+        {profileImage : response.url}
+      ))
+      .catch((error) => {
+        console.error("Error fetching profile image:", error);
+        setUserDetails({
+          name: "User",
+          profileImage: "https://picsum.photos/id/77/200/200",
+        });
+      });
+
+      profile();
+    } , []);
+
 
   const handleAddTaskList = (event) => {
     event.preventDefault();
@@ -87,7 +108,19 @@ export default function TaskBoard() {
         )
       }
 
-      <h1 className="text-white text-3xl text-center mb-6">Task Board</h1>
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-2xl font-bold text-white">Task Board</h1>
+        <div className="flex items-center space-x-4">
+          <img
+            src={
+              userDetails?.profileImage || "https://picsum.photos/id/77/200/200"
+            }
+            alt="Profile"
+            className="w-10 h-10 rounded-full"
+          />
+          <span className="text-white">{userDetails?.name || "User"}</span>
+        </div>
+      </div>
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-xl font-bold mb-4">Your Tasks</h2>
         {taskBoardData?.taskList?.length > 0 ? (
